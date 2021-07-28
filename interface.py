@@ -85,10 +85,3 @@ class CommandError(Exception):
             return "An error occured when running this command: {0}".format(self.message)
         else:
             return "An error occured when running this command"
-
-
-rhodos = Nest()
-packages = rhodos.get_packages()
-print(packages)
-rhodos.reset(packages[1])
-rhodos.flash(packages[1])
