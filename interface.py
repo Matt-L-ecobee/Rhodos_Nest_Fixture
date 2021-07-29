@@ -6,7 +6,7 @@ class Nest:
 
     def __init__(self):
         """Setup function"""
-        self.path = os.getcwd()
+        self.path = os.path.dirname(__file__)
         failed = os.system("cd " + self.path)
         if failed:
             raise PathError(self.path)
@@ -28,7 +28,7 @@ class Nest:
                   f"/cc1312r1f3.ccxml --post-flash-device-cmd PinReset "
         failed = os.system(command)
         if failed:
-            raise CommandError(failed)
+            raise CommandError(command)
 
     def flash(self, package_name: str) -> None:
         """
@@ -39,10 +39,10 @@ class Nest:
         """
         if os.system(f"cd {self.path}/uniflash-packages/{package_name}"):
             raise PathError(f"{self.path}/uniflash-packages/{package_name}")
-        failed = os.system(
-            f"cd {self.path}/uniflash-packages/{package_name} && dslite")
+        command = f"cd {self.path}/uniflash-packages/{package_name} && dslite"
+        failed = os.system(command)
         if failed:
-            raise CommandError(failed)
+            raise CommandError(command)
 
     def get_packages(self) -> list:
         """
